@@ -1,0 +1,92 @@
+{% load static %}
+<html>
+<head>
+	<title>Новость</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+
+	<link rel="shortcut icon" href="css/images/favicon.ico" />
+
+</head>
+<body>
+	<header class="header">
+		<div class="header__wrapper">
+			<nav class="header__nav">
+				<ul class="nav__list">
+					<li class="nav__item"><a class="nav__link" href="/" class="active">Новости</a></li>
+					<li class="nav__item"><a class="nav__link" href="/events">Мероприятия</a></li>
+					<li class="nav__item"><a class="nav__link" href="/admin">Админ панель</a></li>
+					<li class="nav__item"><a class="nav__link" href="/logout">Выйти</a></li>
+
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<div class="post">
+			<h3 class="post__title">{{ post.title }}</h3>
+			<div align="center">
+				<img src="{{ post.img.url }}" width="75%"/>
+			</div>
+			<div class="post__description">
+				<p>{{ post.description }}</p>
+				<p class="post__author"><strong>Автор:</strong> {{ post.author }} </p>
+			</div>
+			<div class="post__likes">
+				<p><span class="likes">Понравилось:</span> {{ post.likes_set.all.count }}</p>
+				<a style="color: red" class="post__put-like" href="{% url 'add_likes' post.id %}">Нравится</a>
+				<a href="{% url 'del_likes' post.id %}">Убрать лайк</a>
+			</div>
+			<div>
+				<h4 class="comments__title">Комментарии</h4>
+				{% for comment in post.comments_set.all %}
+				<div class="view-comments">
+					<p class="comment__name"><strong>{{ comment.name }}</strong></p>
+					<p>
+						{{ comment.text_comments }}
+					</p>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="form-comment">
+				<h4 class="put-comment__title">Оставить комментарий</h4>
+
+				<form class="put-comment__form" action="{% url 'add_comments' post.id %}" method="post">
+					{% csrf_token %}
+					<div>
+						<label class="put-comment__label">
+							<span>Ваш комментарий *</span>
+							<textarea required class="put-comment__input" name="text_comments"></textarea>
+						</label>
+					</div>
+					<div>
+						<label class="put-comment__label">
+							<span>Ваше имя *</span>
+							<input required class="put-comment__input" type="text" name="name">
+						</label>
+
+					</div>
+					<div>
+						<label class="put-comment__label">
+							<span>Ваш Email *</span>
+							<input required class="put-comment__input" type="email" name="email">
+						</label>
+					</div>
+					<button class="put-comment__btn" type="submit">Отправить</button>
+				</form>
+			</div>
+
+		</div>
+
+
+	</div>
+	</main>
+
+	<footer class="footer">
+		<div class="footer__outro">
+			<p class="outro"> Copyright &copy;  2022 </p>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

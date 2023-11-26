@@ -1,0 +1,50 @@
+{% load static %}
+<html>
+<head>
+	<title>Мероприятия</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+</head>
+<body>
+	<header class="header">
+		<div class="header__wrapper">
+			<nav class="header__nav">
+				<ul class="nav__list">
+					<li class="nav__item"><a class="nav__link" href="/" class="active">Новости</a></li>
+					<li class="nav__item"><a class="nav__link" href="/events">Мероприятия</a></li>
+					<li class="nav__item"><a class="nav__link" href="/admin">Админ панель</a></li>
+					<li class="nav__item"><a class="nav__link" href="/logout">Выйти</a></li>
+
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<section class="main">
+			<div class="main__wrapper">
+				<h3 class="main__title">Мероприятия</h3>
+				<div class="main__cards">
+					{% for event in event_list %}
+					<div class="main__card">
+						<div class="card__img-wrapper">
+							<a href="{{ event.id }}"><img class="card__img" src="{{ event.img.url }}" alt="" /></a>
+						</div>
+						<div class="card__text">
+							<h4 class="card__title"><a href="{{ event.id }}">{{ event.title }}</a></h4>
+							<p class="card__date"><strong>Дата проведения:</strong> {{ event.date }}</p>
+							<p class="card__outro"><strong>Место проведения:</strong> {{ event.location }} </p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer class="footer">
+		<div class="footer__outro">
+			<p class="outro"> Copyright &copy;  2022 </p>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

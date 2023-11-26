@@ -1,0 +1,161 @@
+* { margin: 0; padding: 0; outline:0; }
+
+
+ul {
+    list-style: none;
+}
+
+body {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.header__wrapper {
+    max-width: 1250px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.nav__list {
+    display: flex;
+    gap: 50px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.main__wrapper {
+    max-width: 1250px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.main__cards {
+    margin-top: 50px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.main__title {
+    text-align: center;
+    font-size: 30px;
+}
+
+.main__card {
+    width: 330px;
+    border-radius: 30px;
+    border: 1px solid black;
+    padding: 20px;
+    position: relative;
+}
+
+.card__img {
+    width: 300px;
+    height: 225px;
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+.card__title {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.post__title {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.post__description {
+    max-width: 75%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.post__author {
+    margin-top: 10px;
+}
+
+.post__sports li::before {
+
+    content: "🎯";
+
+    margin-right: 15px;
+
+    font-size: 20px;
+
+}
+
+.post__no-sports::before {
+
+    content: "❌";
+
+    margin-right: 15px;
+
+    font-size: 20px;
+
+}
+
+.post__likes {
+    margin-left: 12.5%;
+    margin-top: 10px;
+}
+
+.likes {
+    color: red;
+    font-weight: 700;
+}
+
+.post__put-like {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.comments__title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.view-comments {
+    margin-left: 12.5%;
+}
+
+.comment__name {
+    margin-top: 20px;
+}
+.put-comment__title {
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.put-comment__form {
+    margin-left: 12.5%;
+}
+
+.put-comment__label {
+    display: flex;
+    flex-direction: column;
+}
+
+.put-comment__input {
+    max-width: 50%;
+}
+
+.footer__outro {
+    width: 100%;
+    min-height: 30px;
+}
+
+.outro {
+    max-width: fit-content;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-weight: 700;
+}

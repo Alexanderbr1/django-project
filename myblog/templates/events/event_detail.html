@@ -1,0 +1,104 @@
+{% load static %}
+<html>
+<head>
+	<title>Мероприятие</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+
+	<link rel="shortcut icon" href="css/images/favicon.ico" />
+
+</head>
+<body>
+	<header class="header">
+		<div class="header__wrapper">
+			<nav class="header__nav">
+				<ul class="nav__list">
+					<li class="nav__item"><a class="nav__link" href="/" class="active">Новости</a></li>
+					<li class="nav__item"><a class="nav__link" href="/events">Мероприятия</a></li>
+					<li class="nav__item"><a class="nav__link" href="/admin">Админ панель</a></li>
+					<li class="nav__item"><a class="nav__link" href="/logout">Выйти</a></li>
+
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<div class="post">
+			<h3 class="post__title">{{ event.title }}</h3>
+			<div align="center">
+				<img src="{{ event.img.url }}" width="75%"/>
+			</div>
+
+			<div class="post__description">
+				<p><strong>Виды спорта:</strong></p>
+				<ul class="post__sports">
+              {% for sport in sports %}
+                <li>{{ sport.name }}</li>
+              {% empty %}
+                <p class="post__no-sports">Видов спорта, связанных с этим событием, нет</p>
+              {% endfor %}
+            </ul>
+				<br>
+				<p><strong>Описание:</strong></p>
+				<p>{{ event.description }}</p>
+				<p class="post__author"><strong>Дата мероприятия:</strong> {{ event.date }} </p>
+				<p class="post__author"><strong>Место проведения:</strong> {{ event.location }} </p>
+			</div>
+			<div class="post__likes">
+				<p><span class="likes">Понравилось:</span> {{ event.eventlikes_set.all.count }}</p>
+				<a style="color: red" class="post__put-like" href="{% url 'event_add_likes' event.id %}">Нравится</a>
+				<a href="{% url 'event_del_likes' event.id %}">Убрать лайк</a>
+			</div>
+			<div>
+				<h4 class="comments__title">Комментарии</h4>
+				{% for comment in event.eventcomments_set.all %}
+				<div class="view-comments">
+					<p class="comment__name"><strong>{{ comment.name }}</strong></p>
+					<p>
+						{{ comment.text_comments }}
+					</p>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="form-comment">
+				<h4 class="put-comment__title">Оставить комментарий</h4>
+
+				<form class="put-comment__form" action="{% url 'event_add_comments' event.id %}" method="post">
+					{% csrf_token %}
+					<div>
+						<label class="put-comment__label">
+							<span>Ваш комментарий *</span>
+							<textarea required class="put-comment__input" name="text_comments"></textarea>
+						</label>
+					</div>
+					<div>
+						<label class="put-comment__label">
+							<span>Ваше имя *</span>
+							<input required class="put-comment__input" type="text" name="name">
+						</label>
+
+					</div>
+					<div>
+						<label class="put-comment__label">
+							<span>Ваш Email *</span>
+							<input required class="put-comment__input" type="email" name="email">
+						</label>
+					</div>
+					<button class="put-comment__btn" type="submit">Отправить</button>
+				</form>
+			</div>
+
+		</div>
+
+
+	</div>
+	</main>
+
+	<footer class="footer">
+		<div class="footer__outro">
+			<p class="outro"> Copyright &copy;  2022 </p>
+		</div>
+	</footer>
+</div>
+</body>
+</html>
