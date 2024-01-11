@@ -1,5 +1,11 @@
+import django_filters
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
+from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -70,8 +76,26 @@ class DelLike(View):
             return redirect(f'/events/{pk}')
 
 
-class EventApiView(APIView):
-    def get(self, request):
-        p = Event.objects.all()
-        return Response({'posts': EventSerializer(p, many=True).data})
+
+class EventApiViewPagination(PageNumberPagination):
+    page_size = 3;
+    page_query_param = 'page size';
+    max_page_size = 10000;
+
+class EventListCreateAPIView(ListCreateAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    pagination_class = EventApiViewPagination
+    filter_backends = [SearchFilter]
+    search_fields = ['date', 'description']
+
+    @action(detail=False, methods=['get'], url_path='custom_filter')
+    def custom_filter(self, request):
+        queryset = Event.objects.filter(
+            Q(date__gt='2022-01-01') & (Q(description__icontains='спорт') | Q(description__icontains='музыка')) & ~Q(
+                location='стадион')
+        )
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
 

@@ -1,5 +1,11 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
 from . import views
+from .viewsets import PostListViewSet
+
+router = DefaultRouter()
+router.register(r'posts', PostListViewSet, basename='post')
 
 urlpatterns = [
     path('', views.PostView.as_view()),
@@ -10,5 +16,8 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('register/', views.RegisterView.as_view(), name='register'),
-    path('api/postlist', views.PostApiView.as_view()),
+    path('api/posts', views.PostListCreateAPIView.as_view()),
+    path('api/posts/<int:pk>/add_likes/', views.LikeApiAdd.as_view()),
+    path('api/posts/<int:pk>/del_likes/', views.LikeApiDel.as_view()),
+    path('api/', include(router.urls)),
 ]
