@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#bf!m!y2g73nc3s)i=9o!w#jt^a4&ck2e%a!vke7xjj5*ct8b4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost',]
 
 
 # Application definition
@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'simple_history',
-    'import_export'
+    'import_export',
+    'drf_yasg',
+    'accounts',
 ]
 
 REST_FRAMEWORK = {
