@@ -15,7 +15,6 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ('date', 'location')
     inlines = [CommentsInline]
     date_hierarchy = 'date'
-    filter_horizontal = ('sports',)
     search_fields = ('title', 'location')
     list_display_links = ('title', 'location')
 
